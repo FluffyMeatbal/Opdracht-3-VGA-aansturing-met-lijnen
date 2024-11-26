@@ -74,28 +74,24 @@ end process delerBlok;
 
 X_teller: process(clk, xTel, lineAdvance)
 begin
-    if rising_edge(clk) then
-        if rising_edge(sclk) then
-            if xTel < 800 then
-                xTel <= xTel + 1; lineAdvance <= '0';
-            else
-                xTel <= 0; lineAdvance <= '1';
-            end if;
+    if rising_edge(sclk) then
+        if xTel < 800 then
+            xTel <= xTel + 1; lineAdvance <= '0';
+        else
+            xTel <= 0; lineAdvance <= '1';
         end if;
     end if;
 end process X_teller;
 
 Y_Teller: process(clk, yTel, lineAdvance)
 begin
-    if rising_edge(clk) then
-        if rising_edge(sclk) then
-            if vid_ON = '1' then
-                if lineAdvance = '1' then
-                    if yTel < 525 then
-                        yTel <= yTel + 1;
-                    else 
-                        yTel <= 0;
-                    end if;
+    if rising_edge(sclk) then
+        if vid_ON = '1' then
+            if lineAdvance = '1' then
+                if yTel < 525 then
+                    yTel <= yTel + 1;
+                else 
+                    yTel <= 0;
                 end if;
             end if;
         end if;
@@ -125,13 +121,11 @@ vid_ON <= V_sync and H_sync;
 
 RGBsync: process(Red, Green, Blue, vid_ON)
 begin
-    if rising_edge(clk) then
-        if rising_edge(sclk) then
-            if vid_ON = '1' then
-                vgaRed <= Red;
-                vgaGreen <= Green;
-                vgaBlue <= Blue;
-            end if;
+    if rising_edge(sclk) then
+        if vid_ON = '1' then
+            vgaRed <= Red;
+            vgaGreen <= Green;
+            vgaBlue <= Blue;
         end if;
     end if;
 end process RGBsync;
