@@ -34,7 +34,8 @@ use IEEE.Numeric_STD.ALL;
 
 entity VGA_aansturing is
 Port (
-clk: in std_logic; 
+clk: in std_logic;
+Red, Green, Blue: in std_logic_vector(3 downto 0);
 Hsync, Vsync, video_ON: out std_logic;
 vgaRed, vgaGreen, vgaBlue: out std_logic_vector(3 downto 0)
 );
@@ -119,6 +120,15 @@ end process VERTsync;
 
 video_ON <= V_sync and H_sync;
 vid_ON <= V_sync and H_sync;
+
+RGBsync: process(Red, Green, Blue, vid_ON)
+begin
+if vid_ON = '1' then
+    vgaRed <= Red;
+    vgaGreen <= Green;
+    vgaBlue <= Blue;
+end if;
+end process RGBsync;
 
 end Behavioral;
 
