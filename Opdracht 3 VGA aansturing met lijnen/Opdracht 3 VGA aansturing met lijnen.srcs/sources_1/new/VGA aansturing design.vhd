@@ -33,7 +33,11 @@ use IEEE.Numeric_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity VGA_aansturing is
-Port (clk: in std_logic; Hsync, Vsync, video_ON: out std_logic);
+Port (
+clk: in std_logic; 
+Hsync, Vsync, video_ON: out std_logic;
+vgaRed, vgaGreen, vgaBlue: out std_logic_vector(3 downto 0)
+);
 end VGA_aansturing;
 
 architecture Behavioral of VGA_aansturing is
