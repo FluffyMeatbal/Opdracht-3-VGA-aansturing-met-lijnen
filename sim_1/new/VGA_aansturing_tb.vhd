@@ -55,7 +55,7 @@ architecture Behavioral of VGA_aansturing_tb is
 
 begin
 
-uut : VGA_aansturing port map(
+uut: VGA_aansturing port map(
     clk => clk,
     Red => Red,
     Green => Green,
@@ -68,7 +68,7 @@ uut : VGA_aansturing port map(
     vgaBlue => vgaBlue
 );
 
-clk_gen : process
+clk_gen: process
 begin
     clk <= '0';
     wait for 1 ns;
@@ -76,7 +76,7 @@ begin
     wait for 1 ns;
 end process;
 
-tb : process
+tb: process
 begin
     Red <= "0000"; Green <= "0000"; Blue <= "0000";    --Zwart
     wait for 1 ms;
@@ -102,18 +102,18 @@ begin
     Red <= "1111"; Green <= "1111"; Blue <= "1111";    --Wit
     wait for 1 ms;
     
-    wait;
+    wait;                                               --Einde van de simulatie
 end process;
 
-validation : process
+validation: process
 begin
 wait until rising_edge(clk);
 if video_ON = '1' then
     verify <= true when 
-    (vgaRed = Red) 
-    and (vgaGreen = Green) 
-    and (vgaBlue = Blue) 
-else false;
+        (vgaRed = Red) 
+        and (vgaGreen = Green) 
+        and (vgaBlue = Blue) 
+    else false;
 end if;
 
 end process;

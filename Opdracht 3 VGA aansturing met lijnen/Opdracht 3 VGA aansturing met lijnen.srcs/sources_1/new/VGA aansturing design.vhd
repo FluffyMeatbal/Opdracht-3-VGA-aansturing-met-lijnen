@@ -74,22 +74,24 @@ begin
     end if;
 end process delerBlok;
 
-X_teller: process(clk, xTel, lineAdvance)
+X_teller: process(sclk, xTel, lineAdvance)
 begin
     if rising_edge(sclk) then
-        if xTel < 800 then
-            xTel <= xTel + 1; lineAdvance <= '0';   --verhoog xTel
+        if xTel < 799 then
+            xTel <= xTel + 1;                       --verhoog xTel
+            lineAdvance <= '0';
         else
-            xTel <= 0; lineAdvance <= '1';          --xTel gaat terug naar het begin en yTel moet 1 omhoog
+            xTel <= 0;                              --xTel gaat terug naar het begin en yTel moet 1 omhoog
+            lineAdvance <= '1';
         end if;
     end if;
 end process X_teller;
 
-Y_Teller: process(clk, yTel, lineAdvance)
+Y_Teller: process(sclk, yTel, lineAdvance)
 begin
     if rising_edge(sclk) then
         if lineAdvance = '1' then
-            if yTel < 525 then
+            if yTel < 524 then
                 yTel <= yTel + 1;
             else 
                 yTel <= 0;
