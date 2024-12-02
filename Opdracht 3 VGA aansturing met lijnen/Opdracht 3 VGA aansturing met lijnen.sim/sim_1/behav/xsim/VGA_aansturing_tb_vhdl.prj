@@ -1,0 +1,9 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../Opdracht 3 VGA aansturing met lijnen.srcs/sources_1/new/VGA aansturing design.vhd" \
+
+vhdl2008 xil_defaultlib  \
+"../../../../../sim_1/new/VGA_aansturing_tb.vhd" \
+
+# Do not sort compile order
+nosort
