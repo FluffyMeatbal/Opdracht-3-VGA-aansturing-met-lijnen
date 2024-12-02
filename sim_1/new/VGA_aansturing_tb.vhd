@@ -51,7 +51,7 @@ architecture Behavioral of VGA_aansturing_tb is
     signal Hsync, Vsync, video_ON: std_logic;
     signal vgaRed, vgaGreen, vgaBlue: std_logic_vector(3 downto 0);
     
---    signal verify : boolean:= true; 
+    signal verify : boolean:= true; 
 
 begin
 
@@ -68,129 +68,54 @@ uut : VGA_aansturing port map(
     vgaBlue => vgaBlue
 );
 
+clk_gen : process
+begin
+    clk <= '0';
+    wait for 1 ns;
+    clk <= '1';
+    wait for 1 ns;
+end process;
+
 tb : process
 begin
-    Red <= "000"; Green <= "000"; Blue <= "000";    --Zwart
-    
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when
---            (vgaRed = "000" 
---            and vgaGreen = "000" 
---            and vgaBlue = "000")
---            else false;
---        end if;
-    end loop;
+    Red <= "0000"; Green <= "0000"; Blue <= "0000";    --Zwart
+    wait for 1 ms;
 
-    Red <= "111"; Green <= "000"; Blue <= "000";    --Rood
+    Red <= "1111"; Green <= "0000"; Blue <= "0000";    --Rood
+    wait for 1 ms;
     
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when 
---            (vgaRed = "111") 
---            and (vgaGreen = "000") 
---            and (vgaBlue = "000")
---            else false;
---        end if;
-    end loop;
-    
-    Red <= "111"; Green <= "111"; Blue <= "000";    --Geel
-    
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when 
---            (vgaRed = "111") 
---            and (vgaGreen = "111") 
---            and (vgaBlue = "000") 
---            else false;
---        end if;
-    end loop;
+    Red <= "1111"; Green <= "1111"; Blue <= "0000";    --Geel
+    wait for 1 ms;
 
-    Red <= "000"; Green <= "111"; Blue <= "000";    --Groen
+    Red <= "0000"; Green <= "1111"; Blue <= "0000";    --Groen
+    wait for 1 ms;
     
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when 
---            (vgaRed = "000") 
---            and (vgaGreen = "111") 
---            and (vgaBlue = "000") 
---            else false;
---        end if;
-    end loop;
+    Red <= "0000"; Green <= "1111"; Blue <= "1111";    --Cyaan
+    wait for 1 ms; 
     
-    Red <= "000"; Green <= "111"; Blue <= "111";    --Cyaan
+    Red <= "0000"; Green <= "0000"; Blue <= "1111";    --Blauw
+    wait for 1 ms;
     
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when 
---            (vgaRed = "000") 
---            and (vgaGreen = "111") 
---            and (vgaBlue = "111") 
---            else false;
---        end if;
-    end loop;
+    Red <= "1111"; Green <= "0000"; Blue <= "1111";    --Magenta
+    wait for 1 ms;
     
-    Red <= "000"; Green <= "000"; Blue <= "111";    --Blauw
-    
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when 
---            (vgaRed = "000") 
---            and (vgaGreen = "000") 
---            and (vgaBlue = "111") 
---            else false;
---        end if;
-    end loop;
-    
-    Red <= "111"; Green <= "000"; Blue <= "111";    --Magenta
-    
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when 
---            (vgaRed = "111") 
---            and (vgaGreen = "000") 
---            and (vgaBlue = "111") 
---            else false;
---        end if;
-    end loop;
-    
-    Red <= "111"; Green <= "111"; Blue <= "111";    --Wit
-    
-    for i in 0 to 418676 loop
-        clk <= '0'; wait for 1 ns;
-        clk <= '1'; wait for 1 ns;
-        
---        if video_ON = '1' then
---            verify <= true when 
---            (vgaRed = "111") 
---            and (vgaGreen = "111") 
---            and (vgaBlue = "111") 
---            else false;
---        end if;
-    end loop;
+    Red <= "1111"; Green <= "1111"; Blue <= "1111";    --Wit
+    wait for 1 ms;
     
     wait;
+end process;
+
+validation : process
+begin
+wait until rising_edge(clk);
+if video_ON = '1' then
+    verify <= true when 
+    (vgaRed = Red) 
+    and (vgaGreen = Green) 
+    and (vgaBlue = Blue) 
+else false;
+end if;
+
 end process;
 
 end Behavioral;

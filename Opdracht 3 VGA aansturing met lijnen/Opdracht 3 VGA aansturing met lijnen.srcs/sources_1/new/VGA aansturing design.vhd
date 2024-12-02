@@ -42,10 +42,8 @@ vgaRed, vgaGreen, vgaBlue: out std_logic_vector(3 downto 0)
 end VGA_aansturing;
 
 architecture Behavioral of VGA_aansturing is
-signal deler : integer range 0 to 1023 := 0;        --signaal voor de deler
 signal sclk: std_logic;                             --gedeelde klok 
-constant prscl : integer range 0 to 1023 := 4;      --prescaler
-signal EN : std_logic;                              --Enable
+constant prscl : integer := 4;                      --prescaler
 
 signal xTel : integer range 0 to 1023 := 0;
 signal yTel : integer range 0 to 1023 := 0;
@@ -57,16 +55,20 @@ signal vid_ON : std_logic;
 
 begin
 
-delerBlok: process(clk, deler)
+delerBlok: process(clk)
+variable deler : integer range 0 to 1023 := 0;      --variabele voor de deler
+
 begin
     if rising_edge(clk) then
         if deler = prscl/2 then                     --50% van periode voorbij
-            sclk <= '1'; deler <= deler + 1;
+            sclk <= '1'; 
+            deler := deler + 1;
         else
             if deler = prscl then                   --100% van periode voorbij
-                sclk <= '0'; deler <= 0;
+                sclk <= '0'; 
+                deler := 0;
             else
-                deler <= deler + 1;
+                deler := deler + 1;
             end if;
         end if;
     end if;
@@ -98,12 +100,8 @@ end process Y_teller;
 
 HORsync: process(xTel)
 begin
-    if xTel > 655 then
-        if xTel < 752 then
-            H_sync <= '0';
-        else
-            H_sync <= '0';
-        end if;
+    if xTel > 655 and xTel < 752 then           --Horizontale puls 96 lijnen breed
+        H_sync <= '0';
     elsif xTel < 640 then
         H_sync <= '1';
     else
@@ -113,12 +111,8 @@ end process HORsync;
 
 VERTsync: process(yTel)
 begin
-    if yTel > 489 then 
-        if yTel < 492 then
-            V_sync <= '0';
-        else
-            V_sync <= '0';
-        end if;
+    if yTel > 489 and yTel < 492 then           --Verticale puls 2 lijnen breed
+        V_sync <= '0';
     elsif yTel < 480 then
         V_sync <= '1';
     else
