@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.runs/synth_1'
+HD_PWD='C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

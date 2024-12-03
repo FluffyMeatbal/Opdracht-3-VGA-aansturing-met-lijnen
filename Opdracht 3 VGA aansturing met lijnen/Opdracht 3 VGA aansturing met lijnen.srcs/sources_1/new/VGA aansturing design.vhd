@@ -36,7 +36,7 @@ entity VGA_aansturing is
 Port (
 clk: in std_logic;
 Red, Green, Blue: in std_logic_vector(3 downto 0);
-Hsync, Vsync, video_ON: out std_logic;
+Hsync, Vsync: out std_logic;
 vgaRed, vgaGreen, vgaBlue: out std_logic_vector(3 downto 0)
 );
 end VGA_aansturing;
@@ -137,7 +137,6 @@ end process RGBsync;
 
 Hsync <= H_sync;
 Vsync <= V_sync;
-video_ON <= vid_ON;
 
 end Behavioral;
 

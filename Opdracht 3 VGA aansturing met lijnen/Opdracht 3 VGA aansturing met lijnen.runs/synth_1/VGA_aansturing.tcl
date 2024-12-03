@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.runs/synth_1/VGA_aansturing.tcl"
+  variable script "C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.runs/synth_1/VGA_aansturing.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,21 +56,23 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 4
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir {C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.cache/wt} [current_project]
-set_property parent.project_path {C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.xpr} [current_project]
+set_property webtalk.parent_dir {C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.cache/wt} [current_project]
+set_property parent.project_path {C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.xpr} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
-set_property ip_output_repo {c:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.cache/ip} [current_project]
+set_property ip_output_repo {c:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.cache/ip} [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_vhdl -library xil_defaultlib {{C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.srcs/sources_1/new/VGA aansturing design.vhd}}
+read_vhdl -library xil_defaultlib {{C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.srcs/sources_1/new/VGA aansturing design.vhd}}
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -80,12 +82,12 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc {{C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Basys-3-Master.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Basys-3-Master.xdc}}]
+read_xdc {{C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Basys-3-Master.xdc}}
+set_property used_in_implementation false [get_files {{C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Basys-3-Master.xdc}}]
 
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental {C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.srcs/utils_1/imports/synth_1/VGA_aansturing.dcp}
+read_checkpoint -auto_incremental -incremental {C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.srcs/utils_1/imports/synth_1/VGA_aansturing.dcp}
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
