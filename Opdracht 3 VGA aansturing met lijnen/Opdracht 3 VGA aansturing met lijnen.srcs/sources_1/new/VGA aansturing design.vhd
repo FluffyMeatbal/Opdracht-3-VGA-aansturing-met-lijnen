@@ -36,7 +36,7 @@ entity VGA_aansturing is
 Port (
 clk: in std_logic;
 Red, Green, Blue: in std_logic_vector(3 downto 0);
-Hsync, Vsync: out std_logic;
+Hsync, Vsync, video_ON: out std_logic;
 vgaRed, vgaGreen, vgaBlue: out std_logic_vector(3 downto 0)
 );
 end VGA_aansturing;
@@ -47,7 +47,6 @@ constant prscl : integer := 4;                      --prescaler
 
 signal xTel : integer range 0 to 1023 := 0;
 signal yTel : integer range 0 to 1023 := 0;
-signal lineAdvance : std_logic;
 
 signal H_sync : std_logic;
 signal V_sync : std_logic;
@@ -74,15 +73,13 @@ begin
     end if;
 end process delerBlok;
 
-X_teller: process(sclk, xTel, lineAdvance)
+X_teller: process(sclk, xTel)
 begin
     if rising_edge(sclk) then
         if xTel < 799 then
             xTel <= xTel + 1;                       --verhoog xTel
-            lineAdvance <= '0';
         else
-            xTel <= 0;                              --xTel gaat terug naar het begin en yTel moet 1 omhoog
-            lineAdvance <= '1';
+            xTel <= 0;                              --xTel gaat terug naar het begin
         end if;
     end if;
 end process X_teller;
@@ -90,7 +87,7 @@ end process X_teller;
 Y_Teller: process(sclk, yTel, lineAdvance)
 begin
     if rising_edge(sclk) then
-        if lineAdvance = '1' then
+        if xTel = 799 then                          --xTel is aan het eind
             if yTel < 524 then
                 yTel <= yTel + 1;
             else 
@@ -122,14 +119,14 @@ begin
     end if;
 end process VERTsync;
 
-video_ON: process(xTel, yTel)
+video_ON_sync: process(xTel, yTel)
 begin
     if xTel < 640 and yTel < 480 then
         vid_ON <= '1';
     else
         vid_ON <= '0';
     end if;
-end process video_ON;
+end process video_ON_sync;
 
 RGBsync: process(sclk, Red, Green, Blue, vid_ON)
 begin
@@ -148,6 +145,7 @@ end process RGBsync;
 
 Hsync <= H_sync;
 Vsync <= V_sync;
+video_ON <= vid_ON;
 
 end Behavioral;
 
