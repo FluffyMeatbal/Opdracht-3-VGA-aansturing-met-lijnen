@@ -107,7 +107,7 @@ begin
     elsif xTel < 640 then
         H_sync <= '1';
     else
-        H_sync <= '0';
+        H_sync <= '1';
     end if;
 end process HORsync;
 
@@ -118,11 +118,18 @@ begin
     elsif yTel < 480 then
         V_sync <= '1';
     else
-        V_sync <= '0';
+        V_sync <= '1';
     end if;
 end process VERTsync;
 
-vid_ON <= V_sync and H_sync;
+video_ON: process(xTel, yTel)
+begin
+    if xTel < 640 and yTel < 480 then
+        vid_ON <= '1';
+    else
+        vid_ON <= '0';
+    end if;
+end process video_ON;
 
 RGBsync: process(sclk, Red, Green, Blue, vid_ON)
 begin
