@@ -131,6 +131,10 @@ begin
             vgaRed <= Red;
             vgaGreen <= Green;
             vgaBlue <= Blue;
+        else
+            vgaRed <= "0000";
+            vgaGreen <= "0000";
+            vgaBlue <= "0000";
         end if;
     end if;
 end process RGBsync;

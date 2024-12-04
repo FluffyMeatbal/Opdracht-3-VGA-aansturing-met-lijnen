@@ -41,14 +41,14 @@ architecture Behavioral of VGA_aansturing_tb is
     Port (
         clk: in std_logic;
         Red, Green, Blue: in std_logic_vector(3 downto 0);
-        Hsync, Vsync, video_ON: out std_logic;
+        Hsync, Vsync: out std_logic;
         vgaRed, vgaGreen, vgaBlue: out std_logic_vector(3 downto 0)
     );
     end component;
 
     signal clk: std_logic;
     signal Red, Green, Blue: std_logic_vector(3 downto 0);
-    signal Hsync, Vsync, video_ON: std_logic;
+    signal Hsync, Vsync: std_logic;
     signal vgaRed, vgaGreen, vgaBlue: std_logic_vector(3 downto 0);
     
     signal verify : boolean:= true; 
@@ -62,7 +62,6 @@ uut: VGA_aansturing port map(
     Blue => Blue,
     Hsync => Hsync,
     Vsync => Vsync,
-    video_ON => video_ON,
     vgaRed => vgaRed,
     vgaGreen => vgaGreen,
     vgaBlue => vgaBlue
@@ -108,7 +107,7 @@ end process;
 validation: process
 begin
 wait until rising_edge(clk);
-if video_ON = '1' then
+if Hsync = '1' and Vsync = '1' then
     verify <= true when 
         (vgaRed = Red) 
         and (vgaGreen = Green) 
