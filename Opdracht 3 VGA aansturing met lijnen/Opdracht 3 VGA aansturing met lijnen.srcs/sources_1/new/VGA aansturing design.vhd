@@ -42,7 +42,7 @@ vgaRed, vgaGreen, vgaBlue: out std_logic_vector(3 downto 0)
 end VGA_aansturing;
 
 architecture Behavioral of VGA_aansturing is
-signal sclk: std_logic;                             --gedeelde klok 
+signal enable: std_logic;                             --gedeelde klok 
 constant prscl : integer := 4;                      --prescaler
 
 signal xTel : integer range 0 to 1023 := 0;
@@ -55,43 +55,47 @@ signal vid_ON : std_logic;
 begin
 
 delerBlok: process(clk)
-variable deler : integer range 0 to 1023 := 0;      --variabele voor de deler
+variable deler : integer range 0 to 511 := 1;          --variabele voor de deler
 
 begin
     if rising_edge(clk) then
-        if deler = prscl/2 then                     --50% van periode voorbij
-            sclk <= '1'; 
-            deler := deler + 1;
+        if deler = prscl / 4 then                   --25% van periode voorbij 
+            enable <= '1';
         else
-            if deler = prscl then                   --100% van periode voorbij
-                sclk <= '0'; 
-                deler := 0;
-            else
-                deler := deler + 1;
-            end if;
+            enable <= '0';
+        end if;
+        
+        if deler = prscl then                           --100% van periode voorbij 
+            deler := 1;
+        else
+            deler := deler + 1;
         end if;
     end if;
 end process delerBlok;
 
-X_teller: process(sclk, xTel)
+X_teller: process(clk, enable, xTel)
 begin
-    if rising_edge(sclk) then
-        if xTel < 799 then
-            xTel <= xTel + 1;                       --verhoog xTel
-        else
-            xTel <= 0;                              --xTel gaat terug naar het begin
+    if rising_edge(clk) then
+        if enable = '1' then
+            if xTel < 799 then
+                xTel <= xTel + 1;                       --verhoog xTel
+            else
+                xTel <= 0;                              --xTel gaat terug naar het begin
+            end if;
         end if;
     end if;
 end process X_teller;
 
-Y_Teller: process(sclk, yTel, lineAdvance)
+Y_Teller: process(clk, enable, yTel)
 begin
-    if rising_edge(sclk) then
-        if xTel = 799 then                          --xTel is aan het eind
-            if yTel < 524 then
-                yTel <= yTel + 1;
-            else 
-                yTel <= 0;
+    if rising_edge(clk) then
+        if enable = '1' then
+            if xTel = 799 then                          --xTel is aan het eind
+                if yTel < 524 then
+                    yTel <= yTel + 1;
+                else 
+                    yTel <= 0;
+                end if;
             end if;
         end if;
     end if;
@@ -128,17 +132,19 @@ begin
     end if;
 end process video_ON_sync;
 
-RGBsync: process(sclk, Red, Green, Blue, vid_ON)
+RGBsync: process(clk, enable, Red, Green, Blue, vid_ON)
 begin
-    if rising_edge(sclk) then
-        if vid_ON = '1' then
-            vgaRed <= Red;
-            vgaGreen <= Green;
-            vgaBlue <= Blue;
-        else
-            vgaRed <= "0000";
-            vgaGreen <= "0000";
-            vgaBlue <= "0000";
+    if rising_edge(clk) then
+        if enable = '1' then
+            if vid_ON = '1' then
+                vgaRed <= Red;
+                vgaGreen <= Green;
+                vgaBlue <= Blue;
+            else
+                vgaRed <= "0000";
+                vgaGreen <= "0000";
+                vgaBlue <= "0000";
+            end if;
         end if;
     end if;
 end process RGBsync;

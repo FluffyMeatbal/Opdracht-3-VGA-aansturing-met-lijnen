@@ -25,6 +25,8 @@ set_property src_info {type:XDC file:1 line:32 export:INPUT save:INPUT read:READ
 set_property PACKAGE_PIN T2 [get_ports {Red[2]}]
 set_property src_info {type:XDC file:1 line:34 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN R3 [get_ports {Red[3]}]
+set_property src_info {type:XDC file:1 line:47 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN U16 [get_ports {video_ON}]
 set_property src_info {type:XDC file:1 line:236 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN G19 [get_ports {vgaRed[0]}]
 set_property src_info {type:XDC file:1 line:238 export:INPUT save:INPUT read:READ} [current_design]

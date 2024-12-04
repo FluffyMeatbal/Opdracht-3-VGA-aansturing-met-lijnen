@@ -1,4 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.srcs/sources_1/new/VGA aansturing design.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/remco/OneDrive/Documenten/Vivado/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen/Opdracht 3 VGA aansturing met lijnen.srcs/sources_1/new/VGA aansturing design.vhd" into library xil_defaultlib
 INFO: [VRFC 10-3107] analyzing entity 'VGA_aansturing'
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/remco/Documents/VHDL/Opdracht 3 VGA aansturing met lijnen/sim_1/new/VGA_aansturing_tb.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'VGA_aansturing_tb'
