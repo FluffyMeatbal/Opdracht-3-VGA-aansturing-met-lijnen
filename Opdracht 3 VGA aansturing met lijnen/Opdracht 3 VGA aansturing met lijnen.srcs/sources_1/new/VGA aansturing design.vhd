@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: Remco Pieper
--- 
+-- Studentnummer: 1859875
 -- Create Date: 20.11.2024 19:32:54
 -- Design Name: 
 -- Module Name: VGA aansturing design - Behavioral
@@ -16,6 +16,13 @@
 -- Revision 0.01 - File Created
 -- Additional Comments:
 -- 
+-- Eisen:
+-- Lijnkleur is rood
+-- Achtergrond is geel
+-- Breedte van de lijn is 4 pixels
+-- De afstand tussen de lijnen is 16 pixels
+-- Horizontale lijnen
+-- Er worden 3 lijnen afgebeeld
 ----------------------------------------------------------------------------------
 
 
