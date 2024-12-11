@@ -81,11 +81,11 @@ begin
     Up <= '1';
     wait for 10 ns;
     Up <= '0';
-    wait for 1 ms;
+    wait for 5 ms;
     Down <= '1';
     wait for 10 ns;
     Down <= '0';
-    wait for 1 ms;
+    wait for 5 ms;
     
     wait;                                               --Einde van de simulatie
 end process;
@@ -101,6 +101,6 @@ end process;
 --    else false;
 --end if;
 
-end process;
+--end process;
 
 end Behavioral;
